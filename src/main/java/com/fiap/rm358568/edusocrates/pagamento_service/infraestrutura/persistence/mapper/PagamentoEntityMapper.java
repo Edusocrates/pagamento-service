@@ -67,7 +67,7 @@ public class PagamentoEntityMapper {
                 .build();
     }
 
-    public PagamentoResponse toResponse(Pagamento pagamentoSalvo) {
+    public static PagamentoResponse toResponse(Pagamento pagamentoSalvo) {
         if (pagamentoSalvo == null) {
             return null;
         }
