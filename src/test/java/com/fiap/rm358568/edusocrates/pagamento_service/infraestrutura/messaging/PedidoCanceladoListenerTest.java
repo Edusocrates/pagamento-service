@@ -30,7 +30,7 @@ class PedidoCanceladoListenerTest {
         UUID pedidoId = UUID.randomUUID();
         PedidoCanceladoEvent event = new PedidoCanceladoEvent(pedidoId);
 
-        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest(StatusPagamento.RECUSADO);
+        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest("RECUSADO");
 
         pedidoCanceladoListener.onPedidoCancelado(event);
 

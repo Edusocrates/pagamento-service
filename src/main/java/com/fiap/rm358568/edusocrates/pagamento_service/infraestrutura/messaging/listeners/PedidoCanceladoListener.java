@@ -23,7 +23,7 @@ public class PedidoCanceladoListener {
         //mock apenas para simular um listener de cancelamento de evento
         log.info("Recebendo evento de cancelamento de pedido: {}", event);
 
-        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest(StatusPagamento.RECUSADO);
+        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest("RECUSADO");
         atualizarStatusPagamentoHandler.atualizarStatus(event.pedidoId(), request);
     }
 }

@@ -1,6 +1,7 @@
 package com.fiap.rm358568.edusocrates.pagamento_service.aplicacao.handlers;
 
 
+import com.fiap.rm358568.edusocrates.pagamento_service.API.exceptions.PagamentoNotFoundException;
 import com.fiap.rm358568.edusocrates.pagamento_service.API.responses.PagamentoResponse;
 import com.fiap.rm358568.edusocrates.pagamento_service.dominio.entities.Cartao;
 import com.fiap.rm358568.edusocrates.pagamento_service.dominio.entities.Pagamento;
@@ -59,7 +60,7 @@ class BuscarPagamentoPorPedidoIdHandlerTest {
 
         when(pagamentoGateway.buscarPorPedidoId(pedidoId)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+        RuntimeException exception = assertThrows(PagamentoNotFoundException.class, () ->
                 buscarPagamentoPorPedidoIdHandler.consultar(pedidoId)
         );
 

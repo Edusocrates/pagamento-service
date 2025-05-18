@@ -1,6 +1,7 @@
 package com.fiap.rm358568.edusocrates.pagamento_service.aplicacao.handlers;
 
 
+import com.fiap.rm358568.edusocrates.pagamento_service.API.exceptions.PagamentoNotFoundException;
 import com.fiap.rm358568.edusocrates.pagamento_service.API.requests.AtualizarStatusPagamentoRequest;
 import com.fiap.rm358568.edusocrates.pagamento_service.API.responses.PagamentoResponse;
 import com.fiap.rm358568.edusocrates.pagamento_service.dominio.entities.Cartao;
@@ -32,7 +33,7 @@ class AtualizarStatusPagamentoHandlerTest {
     @Test
     void atualizarStatus_deveAtualizarStatusQuandoPagamentoExistir() {
         UUID pagamentoId = UUID.randomUUID();
-        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest(StatusPagamento.APROVADO);
+        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest("APROVADO");
 
         // Criando instância real de Pagamento
         Pagamento pagamento = new Pagamento(
@@ -59,11 +60,11 @@ class AtualizarStatusPagamentoHandlerTest {
     @Test
     void atualizarStatus_deveLancarExcecaoQuandoPagamentoNaoExistir() {
         UUID pagamentoId = UUID.randomUUID();
-        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest(StatusPagamento.APROVADO);
+        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest("APROVADO");
 
         when(pagamentoGateway.buscarPorId(pagamentoId)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+        RuntimeException exception = assertThrows(PagamentoNotFoundException.class, () ->
                 atualizarStatusPagamentoHandler.atualizarStatus(pagamentoId, request)
         );
 

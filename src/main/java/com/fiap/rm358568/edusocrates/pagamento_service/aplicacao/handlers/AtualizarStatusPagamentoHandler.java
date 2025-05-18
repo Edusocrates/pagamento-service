@@ -1,8 +1,10 @@
 package com.fiap.rm358568.edusocrates.pagamento_service.aplicacao.handlers;
 
+import com.fiap.rm358568.edusocrates.pagamento_service.API.exceptions.PagamentoNotFoundException;
 import com.fiap.rm358568.edusocrates.pagamento_service.API.requests.AtualizarStatusPagamentoRequest;
 import com.fiap.rm358568.edusocrates.pagamento_service.API.responses.PagamentoResponse;
 import com.fiap.rm358568.edusocrates.pagamento_service.aplicacao.usecases.AtualizarStatusPagamentoUseCase;
+import com.fiap.rm358568.edusocrates.pagamento_service.dominio.entities.StatusPagamento;
 import com.fiap.rm358568.edusocrates.pagamento_service.dominio.gateways.PagamentoGateway;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +28,11 @@ public class AtualizarStatusPagamentoHandler implements AtualizarStatusPagamento
         log.info("Atualizando status do pagamento com ID: {}", pagamentoId);
 
         var pagamento = pagamentoGateway.buscarPorId(pagamentoId)
-                .orElseThrow(() -> new RuntimeException("Pagamento não encontrado"));
+                .orElseThrow(() -> new PagamentoNotFoundException("Pagamento não encontrado"));
 
-        pagamento.alterarStatus(request.statusPagamento());
+        log.info("Pagamento encontrado! Atualizando...");
+        pagamento.alterarStatus(StatusPagamento.valueOf(request.status()));
+        log.info("Status do pagamento atualizado para: {}", request.status());
 
         var pagamentoAtualizado = pagamentoGateway.atualizar(pagamento);
 

@@ -1,5 +1,6 @@
 package com.fiap.rm358568.edusocrates.pagamento_service.aplicacao.handlers;
 
+import com.fiap.rm358568.edusocrates.pagamento_service.API.exceptions.PagamentoNotFoundException;
 import com.fiap.rm358568.edusocrates.pagamento_service.API.responses.PagamentoResponse;
 import com.fiap.rm358568.edusocrates.pagamento_service.aplicacao.usecases.BuscarPagamentoPorPedidoIdUseCase;
 import com.fiap.rm358568.edusocrates.pagamento_service.dominio.entities.Pagamento;
@@ -26,7 +27,7 @@ public class BuscarPagamentoPorPedidoIdHandler implements BuscarPagamentoPorPedi
         log.info("Buscando pagamento para o pedido ID: {}", pedidoId);
 
         Pagamento pagamento = pagamentoGateway.buscarPorPedidoId(pedidoId)
-                .orElseThrow(() -> new RuntimeException("Pagamento não encontrado para o pedido ID: " + pedidoId));
+                .orElseThrow(() -> new PagamentoNotFoundException("Pagamento não encontrado para o pedido ID: " + pedidoId));
 
         log.info("Pagamento encontrado: {}", pagamento);
 

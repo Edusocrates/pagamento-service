@@ -15,9 +15,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CriarPagamentoHandler implements CriarPagamentoUseCase {
 
-    private PagamentoGateway pagamentoGateway;
-
-    private PagamentoEntityMapper mapper;
+    private final PagamentoGateway pagamentoGateway;
+    private final PagamentoEntityMapper mapper;
 
     @Override
     @Transactional

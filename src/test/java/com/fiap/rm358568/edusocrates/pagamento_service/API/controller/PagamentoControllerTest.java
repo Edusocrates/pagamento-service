@@ -73,7 +73,7 @@ class PagamentoControllerTest {
     @Test
     void atualizarStatus_deveRetornarPagamentoResponse_quandoStatusForAtualizado() {
         UUID id = UUID.randomUUID();
-        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest(StatusPagamento.APROVADO);
+        AtualizarStatusPagamentoRequest request = new AtualizarStatusPagamentoRequest("APROVADO");
         PagamentoResponse responseMock = new PagamentoResponse(UUID.randomUUID(),
                 UUID.randomUUID(), StatusPagamento.APROVADO,"123456789", "TESTE", "30/12/2000", "TESTE", BigDecimal.valueOf(100.0), StatusPagamento.APROVADO);
 
